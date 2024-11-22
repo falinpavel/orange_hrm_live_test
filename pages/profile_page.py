@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class ProfilePage(BasePage):
-    PAGE_URL = Links.PERSONAL_DETAILS_PAGE
+    PAGE_URL = Links.MY_INFO_PAGE
 
     """Элементы страницы 'Profile'"""
     EMPLOYEE_FIRST_NAME_FIELD = ("xpath", "//input[@name = 'firstName']")

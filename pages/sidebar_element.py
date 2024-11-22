@@ -4,15 +4,20 @@ from config.links import Links
 from selenium.webdriver.support import expected_conditions as EC
 
 
-class SidebarElement(BasePage):
+class SidebarElements(BasePage):
 
-    PAGE_URL = Links.DASHBOARD_PAGE
+    PAGE_URL = Links.DASHBOARD_PAGE # this is main page?
 
     """Элементы навигационной панели"""
     SWITCH_BUTTON = ("xpath", "//button[@role = 'none']")
+
     LINK_BUZZ = ("xpath", "(//ul[@class= 'oxd-main-menu']/li)[12]")
     LINK_CLAIM = ("xpath", "(//ul[@class= 'oxd-main-menu']/li)[11]")
+
     LINK_MAINTENANCE = ("xpath", "(//ul[@class= 'oxd-main-menu']/li)[10]")
+    PASSWORD_FIELD_MAINTENANCE = ("xpath", "//input[@type = 'password']")
+    CONFIRM_BUTTON_MAINTENANCE = ("xpath", "//button[@type = 'submit']")
+
     LINK_DIRECTORY = ("xpath", "(//ul[@class= 'oxd-main-menu']/li)[9]")
     LINK_DASHBOARD = ("xpath", "(//ul[@class= 'oxd-main-menu']/li)[8]")
     LINK_PERFORMANCE = ("xpath", "(//ul[@class= 'oxd-main-menu']/li)[7]")
@@ -35,7 +40,7 @@ class SidebarElement(BasePage):
     def click_buzz_link(self):
         self.wait.until(
             EC.element_to_be_clickable(self.LINK_BUZZ)
-        ).click()
+        ).double_click()
 
     @allure.step("Click on 'Claim' link")
     def click_claim_link(self):
@@ -44,9 +49,15 @@ class SidebarElement(BasePage):
         ).click()
 
     @allure.step("Click on 'Maintenance' link")
-    def click_maintenance_link(self):
+    def click_maintenance_link(self, password):
         self.wait.until(
             EC.element_to_be_clickable(self.LINK_MAINTENANCE)
+        ).click()
+        self.wait.until(
+            EC.element_to_be_clickable(self.PASSWORD_FIELD_MAINTENANCE)
+        ).send_keys(password)
+        self.wait.until( # переписать в будущем отдельной функцией !!!
+            EC.element_to_be_clickable(self.CONFIRM_BUTTON_MAINTENANCE)
         ).click()
 
     @allure.step("Click on 'Directory' link")
