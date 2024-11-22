@@ -6,18 +6,12 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class ProfilePage(BasePage):
     PAGE_URL = Links.PERSONAL_DETAILS_PAGE
-    EMPLOYEE_FIRST_NAME_FIELD = (
-        "xpath", "//input[@name = 'firstName']"
-    )
-    EMPLOYEE_MIDDLE_NAME_FIELD = (
-        "xpath", "//input[@name = 'middleName']"
-    )
-    EMPLOYEE_SECOND_NAME_FIELD = (
-        "xpath", "//input[@name = 'lastName']"
-    )
-    SAVE_BUTTON = (
-        "xpath", "(//button[@type = 'submit'])[1]"
-    )
+
+    """Элементы страницы 'Profile'"""
+    EMPLOYEE_FIRST_NAME_FIELD = ("xpath", "//input[@name = 'firstName']")
+    EMPLOYEE_MIDDLE_NAME_FIELD = ("xpath", "//input[@name = 'middleName']")
+    EMPLOYEE_SECOND_NAME_FIELD = ("xpath", "//input[@name = 'lastName']")
+    SAVE_BUTTON = ("xpath", "(//button[@type = 'submit'])[1]")
 
     # def change_employee_info(self, new_first_name, new_middle_name, new_second_name):
     #     with allure.step(
