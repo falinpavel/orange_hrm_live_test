@@ -1,6 +1,27 @@
 import allure
 from base.base_test import BaseTest
 
+"""
+Тест кейс: Проверка меню сайдбара. 
+
+Gherkin:
+    Scenario: Проверка меню сайдбара
+        Given Я вошел в систему
+        And Переход на страницу "Buzz"
+        And Переход на страницу "Claim"
+        And Переход на страницу "Maintenance" по паролю
+        And Переход на страницу "Directory"
+        And Переход на страницу "Dashboard"
+        And Переход на страницу "Performance"
+        And Переход на страницу "My Info"
+        And Переход на страницу "Recruitment"
+        And Переход на страницу "Time"
+        And Переход на страницу "Leave"
+        And Переход на страницу "PIM"
+        And Переход на страницу "Admin"
+        And Клик по кнопке "Switch"
+        Then Меню сайдбара проверено
+"""
 
 @allure.feature("Sidebar menu")
 class TestSidebarMenu(BaseTest):
