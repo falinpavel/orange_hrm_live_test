@@ -4,7 +4,6 @@ import allure
 # import pytest
 from base.base_test import BaseTest
 
-
 """
 Тест кейс: Изменение информации о сотруднике. 
 
@@ -15,9 +14,14 @@ Gherkin:
         When Изменить имя сотрудника
         And Изменить отчество сотрудника
         And Изменить фамилию сотрудника
+        And Изменить ID сотрудника
+        And Изменить другой ID сотрудника
+        And Изменить DLN сотрудника
+        And Изменить LXD date сотрудника
         And Сохранить изменения
         Then Изменения сохранены
 """
+
 
 @allure.feature("Profile change")
 class TestProfileFeatureTest(BaseTest):
@@ -33,6 +37,10 @@ class TestProfileFeatureTest(BaseTest):
         self.profile_page.change_first_name(f"Test {random.randint(1, 100)}")
         self.profile_page.change_middle_name(f"Test {random.randint(1, 100)}")
         self.profile_page.change_second_name(f"Test {random.randint(1, 100)}")
+        self.profile_page.change_employee_id(f"Test {random.randint(1, 100)}")
+        self.profile_page.change_other_id(f"Test {random.randint(1, 100)}")
+        self.profile_page.change_dln(f"Test {random.randint(1, 100)}")
+        self.profile_page.change_lxd_date("2013-01-01")
         self.profile_page.click_save_changes()
         # self.profile_page.is_changes_saved()
         self.profile_page.make_screenshot("test_change_employee_info")
