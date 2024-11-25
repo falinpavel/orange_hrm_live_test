@@ -5,8 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class SidebarElements(BasePage):
-
-    PAGE_URL = Links.DASHBOARD_PAGE # this is main page?
+    PAGE_URL = Links.DASHBOARD_PAGE  # this is main page?
 
     """Элементы навигационной панели"""
     SWITCH_BUTTON = ("xpath", "//button[@role = 'none']")
@@ -40,7 +39,7 @@ class SidebarElements(BasePage):
     def click_buzz_link(self):
         self.wait.until(
             EC.element_to_be_clickable(self.LINK_BUZZ)
-        ).double_click()
+        ).click()
 
     @allure.step("Click on 'Claim' link")
     def click_claim_link(self):
@@ -56,7 +55,7 @@ class SidebarElements(BasePage):
         self.wait.until(
             EC.element_to_be_clickable(self.PASSWORD_FIELD_MAINTENANCE)
         ).send_keys(password)
-        self.wait.until( # переписать в будущем отдельной функцией !!!
+        self.wait.until(  # переписать в будущем отдельной функцией !!!
             EC.element_to_be_clickable(self.CONFIRM_BUTTON_MAINTENANCE)
         ).click()
 
@@ -120,5 +119,3 @@ class SidebarElements(BasePage):
             EC.element_to_be_clickable(self.SEARCH_FIELD)
         ).send_keys(query)
         """Дописать тесты для поиска"""
-
-

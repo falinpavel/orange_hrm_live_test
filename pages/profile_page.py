@@ -1,4 +1,5 @@
 import allure
+from selenium.webdriver import Keys
 from base.base_page import BasePage
 from config.links import Links
 from selenium.webdriver.support import expected_conditions as EC
@@ -13,38 +14,6 @@ class ProfilePage(BasePage):
     EMPLOYEE_SECOND_NAME_FIELD = ("xpath", "//input[@name = 'lastName']")
     SAVE_BUTTON = ("xpath", "(//button[@type = 'submit'])[1]")
 
-    # def change_employee_info(self, new_first_name, new_middle_name, new_second_name):
-    #     with allure.step(
-    #             f"Change first name on {new_first_name}, middle name on {new_middle_name}, second name on {new_second_name}"
-    #     ):
-    #         """Изменение имя сотрудника"""
-    #         first_name_field = self.wait.until(EC.element_to_be_clickable(
-    #             self.EMPLOYEE_FIRST_NAME_FIELD)
-    #         )
-    #         first_name_field.click()
-    #         first_name_field.clear()
-    #         # assert first_name_field.get_attribute("value") == "", "First name is not empty"
-    #         first_name_field.send_keys(new_first_name)
-    #         self.new_value_first_name = new_first_name
-    #         """Изменение отчества сотрудника"""
-    #         middle_name = self.wait.until(EC.element_to_be_clickable(
-    #             self.EMPLOYEE_MIDDLE_NAME_FIELD)
-    #         )
-    #         middle_name.click()
-    #         middle_name.clear()
-    #         # assert middle_name.get_attribute("value") == "", "Middle name is not empty"
-    #         middle_name.send_keys(new_middle_name)
-    #         self.new_value_middle_name = new_middle_name
-    #         """Изменение фамилии сотрудника"""
-    #         second_name = self.wait.until(EC.element_to_be_clickable(
-    #             self.EMPLOYEE_SECOND_NAME_FIELD)
-    #         )
-    #         second_name.click()
-    #         second_name.clear()
-    #         # assert second_name.get_attribute("value") == "", "Second name is not empty"
-    #         second_name.send_keys(new_second_name)
-    #         self.new_value_second_name = new_second_name
-
     def change_first_name(self, new_first_name):
         with allure.step(f"Change first name on {new_first_name}"):
             """Изменение имя сотрудника"""
@@ -52,8 +21,8 @@ class ProfilePage(BasePage):
                 self.EMPLOYEE_FIRST_NAME_FIELD)
             )
             first_name_field.click()
-            first_name_field.clear()
-            # assert first_name_field.get_attribute("value") == "", "First name is not empty"
+            first_name_field.send_keys(Keys.BACKSPACE * 10)  # очищаем поле
+            assert first_name_field.get_attribute("value") == "", "First name is not empty"
             first_name_field.send_keys(new_first_name)
             self.name = new_first_name
 
@@ -63,8 +32,8 @@ class ProfilePage(BasePage):
                 self.EMPLOYEE_MIDDLE_NAME_FIELD)
             )
             middle_name.click()
-            middle_name.clear()
-            # assert middle_name.get_attribute("value") == "", "Middle name is not empty"
+            middle_name.send_keys(Keys.BACKSPACE * 10)
+            assert middle_name.get_attribute("value") == "", "Middle name is not empty"
             middle_name.send_keys(new_middle_name)
             self.name = new_middle_name
 
@@ -74,8 +43,8 @@ class ProfilePage(BasePage):
                 self.EMPLOYEE_SECOND_NAME_FIELD)
             )
             second_name.click()
-            second_name.clear()
-            # assert second_name.get_attribute("value") == "", "Second name is not empty"
+            second_name.send_keys(Keys.BACKSPACE * 10)
+            assert second_name.get_attribute("value") == "", "Second name is not empty"
             second_name.send_keys(new_second_name)
             self.name = new_second_name
 

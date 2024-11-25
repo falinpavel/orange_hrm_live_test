@@ -23,6 +23,7 @@ Gherkin:
         Then Меню сайдбара проверено
 """
 
+
 @allure.feature("Sidebar menu")
 class TestSidebarMenu(BaseTest):
     @allure.title("Check sidebar menu")
@@ -33,7 +34,6 @@ class TestSidebarMenu(BaseTest):
         self.login_page.enter_login(self.data.LOGIN)
         self.login_page.enter_password(self.data.PASSWORD)
         self.login_page.click_submit_button()
-        """Прыгаем по страницам сайдбара"""
         self.sidebar_element.click_buzz_link()
         self.sidebar_element.click_claim_link()
         self.sidebar_element.click_maintenance_link(self.data.PASSWORD)
@@ -46,7 +46,6 @@ class TestSidebarMenu(BaseTest):
         self.sidebar_element.click_leave_link()
         self.sidebar_element.click_pim_link()
         self.sidebar_element.click_admin_link()
-        self.sidebar_element.click_switch_button() # double click
-
+        self.sidebar_element.click_switch_button()
 
         # self.make_screenshot("test_check_sidebar_menu")
