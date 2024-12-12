@@ -41,3 +41,4 @@ class TestAuth(BaseTest):
         self.login_page.enter_login(self.data.LOGIN)
         self.login_page.enter_password(self.data.PASSWORD)
         self.login_page.click_submit_button()
+        self.login_page.click_logout_button()
