@@ -14,3 +14,4 @@ class DashboardPage(BasePage):
         self.wait.until(
             EC.element_to_be_clickable(self.MY_INFO_BUTTON)
         ).click()
+

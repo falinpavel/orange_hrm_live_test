@@ -28,6 +28,7 @@ class SidebarElements(BasePage):
     LINK_ADMIN = ("xpath", "(//ul[@class= 'oxd-main-menu']/li)[1]")
 
     SEARCH_FIELD = ("xpath", "//input[@placeholder='Search']")
+    LINK_TIME_AFTER_SEARCH = ("xpath", "//span[text()='Time']")
 
     @allure.step("Click on 'Switch' button")
     def click_switch_button(self):
@@ -113,9 +114,15 @@ class SidebarElements(BasePage):
             EC.element_to_be_clickable(self.LINK_ADMIN)
         ).click()
 
-    @allure.step("Enter search query")
+    @allure.step("Enter search query /Time/")
     def enter_search_query(self, query):
         self.wait.until(
             EC.element_to_be_clickable(self.SEARCH_FIELD)
         ).send_keys(query)
-        """Дописать тесты для поиска"""
+        self.wait.until(
+            EC.element_to_be_clickable(self.LINK_TIME_AFTER_SEARCH)
+        ).click()
+
+
+
+

@@ -47,5 +47,7 @@ class TestSidebarMenu(BaseTest):
         self.sidebar_element.click_pim_link()
         self.sidebar_element.click_admin_link()
         self.sidebar_element.click_switch_button()
+        self.sidebar_element.click_switch_button()
+        self.sidebar_element.enter_search_query("Time")
 
         # self.make_screenshot("test_check_sidebar_menu")
