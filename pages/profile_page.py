@@ -192,3 +192,85 @@ class ProfilePage(BasePage):
     @allure.step("Click on 'Save' button")
     def click_save_changes(self):
         self.wait.until(EC.element_to_be_clickable(self.SAVE_BUTTON_PERSONAL)).click()
+
+# import allure
+# from selenium.webdriver import Keys
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.support import expected_conditions as EC
+# from base.base_page import BasePage
+#
+#
+# class ProfilePage(BasePage):
+#     PAGE_URL = "https://example.com/my-info"
+#
+#     # Локаторы вынесены в словарь для удобства
+#     LOCATORS = {
+#         "first_name": ("xpath", "//input[@name='firstName']"),
+#         "middle_name": ("xpath", "//input[@name='middleName']"),
+#         "last_name": ("xpath", "//input[@name='lastName']"),
+#         "employee_id": ("xpath", "(//input[@class='oxd-input oxd-input--active'])[2]"),
+#         "other_id": ("xpath", "(//input[@class='oxd-input oxd-input--active'])[3]"),
+#         "dln": ("xpath", "(//input[@class='oxd-input oxd-input--active'])[4]"),
+#         "lxd_date": ("xpath", "(//input[@class='oxd-input oxd-input--active'])[5]"),
+#         "nationality_dropdown": ("xpath", "(//div[@class='oxd-select-text oxd-select-text--active'])[1]"),
+#         "marital_status_dropdown": ("xpath", "(//div[@class='oxd-select-text oxd-select-text--active'])[2]"),
+#         "birth_date": ("xpath", "(//input[@class='oxd-input oxd-input--active'])[6]"),
+#         "save_button": ("xpath", "(//button[@type='submit'])[1]"),
+#     }
+#
+#     @allure.step("Очистка и ввод текста в поле")
+#     def clear_and_input_text(self, field_name: str, new_value: str):
+#         """Очищает и вводит текст в указанное поле."""
+#         locator = self.LOCATORS[field_name]
+#         element = self.wait.until(EC.element_to_be_clickable(locator))
+#         element.click()
+#         element.send_keys(Keys.CONTROL + "a", Keys.DELETE)
+#         self.wait.until(lambda driver: element.get_attribute("value") == "", f"{field_name} не очищено.")
+#         element.send_keys(new_value)
+#         assert element.get_attribute("value") == new_value, f"Ожидалось: {new_value}, Получено: {element.get_attribute('value')}"
+#
+#     @allure.step("Выбор значения из выпадающего списка")
+#     def select_from_dropdown(self, dropdown_name: str, option_text: str):
+#         """Выбор значения из выпадающего списка."""
+#         dropdown_locator = self.LOCATORS[dropdown_name]
+#         dropdown = self.wait.until(EC.element_to_be_clickable(dropdown_locator))
+#         dropdown.click()
+#         option_locator = (By.XPATH, f"//div[@role='option' and .//span[text()='{option_text}']]")
+#         option = self.wait.until(EC.element_to_be_clickable(option_locator))
+#         option.click()
+#
+#     def change_first_name(self, new_first_name: str):
+#         self.clear_and_input_text("first_name", new_first_name)
+#
+#     def change_middle_name(self, new_middle_name: str):
+#         self.clear_and_input_text("middle_name", new_middle_name)
+#
+#     def change_last_name(self, new_last_name: str):
+#         self.clear_and_input_text("last_name", new_last_name)
+#
+#     def change_employee_id(self, new_id: str):
+#         self.clear_and_input_text("employee_id", new_id)
+#
+#     def change_other_id(self, new_other_id: str):
+#         self.clear_and_input_text("other_id", new_other_id)
+#
+#     def change_dln(self, new_dln: str):
+#         self.clear_and_input_text("dln", new_dln)
+#
+#     def change_lxd_date(self, new_lxd_date: str):
+#         self.clear_and_input_text("lxd_date", new_lxd_date)
+#
+#     def change_nationality(self, nationality: str):
+#         self.select_from_dropdown("nationality_dropdown", nationality)
+#
+#     def change_marital_status(self, status: str):
+#         self.select_from_dropdown("marital_status_dropdown", status)
+#
+#     def change_birth_date(self, new_birth_date: str):
+#         self.clear_and_input_text("birth_date", new_birth_date)
+#
+#     @allure.step("Нажать кнопку сохранения изменений")
+#     def click_save_changes(self):
+#         """Сохраняет изменения."""
+#         save_button_locator = self.LOCATORS["save_button"]
+#         self.wait.until(EC.element_to_be_clickable(save_button_locator)).click()
