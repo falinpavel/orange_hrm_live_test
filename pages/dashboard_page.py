@@ -11,7 +11,6 @@ class DashboardPage(BasePage):
 
     @allure.step("Click on 'My Info' link")
     def click_my_info_link(self):
-        self.wait.until(
+        my_info_button = self.wait.until(
             EC.element_to_be_clickable(self.MY_INFO_BUTTON)
         ).click()
-

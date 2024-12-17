@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class SidebarElements(BasePage):
-    PAGE_URL = Links.DASHBOARD_PAGE  # this is main page?
+    PAGE_URL = Links.DASHBOARD_PAGE
 
     """Элементы навигационной панели"""
     SWITCH_BUTTON = ("xpath", "//button[@role = 'none']")

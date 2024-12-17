@@ -1,4 +1,3 @@
-"""Храним фикстуры для тестов."""
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -7,7 +6,6 @@ from selenium.webdriver.chrome.options import Options
 @pytest.fixture(scope="function",
                 autouse=True)  # autouse=True || scope="function" - запуск драйвера для каждого теста отдельно
 def driver(request):
-    """Инициализация драйвера."""
     options = Options()
     # options.add_argument("--headless")
     options.add_argument("--no-sandbox")

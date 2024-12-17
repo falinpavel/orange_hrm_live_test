@@ -1,5 +1,7 @@
 import allure
 from selenium.webdriver import Keys
+from selenium.webdriver.common.by import By
+
 from base.base_page import BasePage
 from config.links import Links
 from selenium.webdriver.support import expected_conditions as EC
@@ -9,7 +11,6 @@ from selenium.webdriver.support.ui import Select
 class ProfilePage(BasePage):
     PAGE_URL = Links.MY_INFO_PAGE
 
-    """Personal Details"""
     EMPLOYEE_FIRST_NAME_FIELD = ("xpath", "//input[@name = 'firstName']")
     EMPLOYEE_MIDDLE_NAME_FIELD = ("xpath", "//input[@name = 'middleName']")
     EMPLOYEE_SECOND_NAME_FIELD = ("xpath", "//input[@name = 'lastName']")
@@ -17,8 +18,12 @@ class ProfilePage(BasePage):
     EMPLOYEE_OTHER_ID_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[3]")
     EMPLOYEE_DLN_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[4]")
     EMPLOYEE_LXD_DATE_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[5]")
+
     EMPLOYEE_NATIONALITY_DROPDOWN = ("xpath", "(//div[@class='oxd-select-text oxd-select-text--active'])[1]")
     EMPLOYEE_NATIONALITY_DROPDOWN_LIST = ("xpath", "//div[@role='listbox']")
+    NEW_EMPLOYEE_NATIONALITY = ("xpath", "//div[@role='option']/span[text()='Angolan']")
+    #NEW_EMPLOYEE_NATIONALITY = (By.XPATH, f"//div[@role='option']/span[text()='{new_nationality}']")
+
     EMPLOYEE_MARITAL_STATUS_DROPDOWN = ("xpath", "(//div[@class='oxd-select-text oxd-select-text--active'])[2]")
     EMPLOYEE_BIRTH_DATE_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[6]")
     EMPLOYEE_GENDER_MALE = ("xpath", "//input[@value='1']")
@@ -31,8 +36,6 @@ class ProfilePage(BasePage):
     SAVE_BUTTON_CUSTOM = ("xpath", "(//button[@type = 'submit'])[2]")
     """Atachments"""
     EMPLOYEE_ADD_ATTACHMENT_BUTTON = ("xpath", "//button[normalize-space()='Add']")
-
-    """Personal Details"""
 
     def change_first_name(self, new_first_name):
         with allure.step(f"Change first name on {new_first_name}"):
@@ -142,62 +145,29 @@ class ProfilePage(BasePage):
 
     from selenium.webdriver.support.ui import Select
 
-    def change_nationality(self, new_nationality):
-        with allure.step(f"Change nationality to {new_nationality}"):
-            # Ждём, пока элемент выпадающего списка станет кликабельным
-            dropdown_element = self.wait.until(EC.element_to_be_clickable(
-                self.EMPLOYEE_NATIONALITY_DROPDOWN
-            ))
-            dropdown_element.click()  # Открываем выпадающий список
-
-            # Ждём появления всех элементов списка
-            dropdown_items = self.wait.until(EC.presence_of_all_elements_located(
-                self.EMPLOYEE_NATIONALITY_DROPDOWN_LIST
-            ))
-
-            # Приводим текст всех элементов к единому формату
-            available_options = [item.text.strip() for item in dropdown_items]
-            allure.attach(
-                "\n".join(available_options),
-                name="Available Dropdown Options",
-                attachment_type=allure.attachment_type.TEXT
+    def change_nationality(self):
+        with allure.step(f"Change nationality to"):
+            nationality = self.wait.until(EC.element_to_be_clickable(
+                self.EMPLOYEE_NATIONALITY_DROPDOWN)
             )
-
-            # Проверяем наличие значения (игнорируем регистр и лишние пробелы)
-            assert any(new_nationality.strip().lower() == option.lower() for option in available_options), \
-                f"{new_nationality} отсутствует в выпадающем списке: {available_options}"
-
-            # Кликаем по нужному элементу
-            for item in dropdown_items:
-                if item.text.strip().lower() == new_nationality.strip().lower():
-                    item.click()
-                    break
-            else:
-                raise AssertionError(f"{new_nationality} не найден в элементах списка: {available_options}")
-
-            # Проверяем, что выбранное значение отображается в выпадающем списке
-            selected_text = self.wait.until(EC.text_to_be_present_in_element(
-                self.EMPLOYEE_NATIONALITY_DROPDOWN,
-                new_nationality
-            ))
-            assert selected_text, f"{new_nationality} не был выбран."
-
-            # Логируем выбранное значение
-            allure.attach(
-                new_nationality,
-                name="Selected Value",
-                attachment_type=allure.attachment_type.TEXT
+            nationality.click()
+            nationality_list = self.wait.until(EC.visibility_of_element_located(
+                self.EMPLOYEE_NATIONALITY_DROPDOWN_LIST)
             )
+            select_new_value = self.wait.until(EC.element_to_be_clickable(
+                self.EMPLOYEE_NATIONALITY_DROPDOWN_LIST)
+            ).click()
 
-            # target_item = next((item for item in dropdown_items_list if item.text == new_nationality), None)
-            # if target_item:
-            #     target_item.click()
-            #     check_selected_item = self.wait.until(EC.text_to_be_present_in_element(
-            #         self.EMPLOYEE_NATIONALITY_DROPDOWN, new_nationality)
-            #     )
-            #     assert check_selected_item, f"{new_nationality} is not selected"
-            # else:
-            #     raise AssertionError(f"{new_nationality} is not found")
+    # def change_nationality(self, new_nationality):
+    #     with allure.step(f"Change nationality on {new_nationality}"):
+    #         nationality = self.wait.until(EC.element_to_be_clickable(
+    #             self.EMPLOYEE_NATIONALITY_DROPDOWN)
+    #         )
+    #         for option in nationality.find_elements_by_tag_name("option"):
+    #             if option.text == new_nationality:
+    #                 option.click()
+    #                 break
+
 
     def change_marital_status(self, new_marital_status):
         with allure.step(f"Change marital status on {new_marital_status}"):

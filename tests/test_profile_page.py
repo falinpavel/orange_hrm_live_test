@@ -22,7 +22,7 @@ Gherkin:
 
 
 @allure.feature("Profile change")
-class TestProfileFeatureTest(BaseTest):
+class TestProfileFeature(BaseTest):
     @allure.title("Change employee info")
     @allure.severity("Critical")
     # @pytest.mark.smoke
@@ -39,7 +39,7 @@ class TestProfileFeatureTest(BaseTest):
         self.profile_page.change_other_id(f"Test {random.randint(1, 100)}")
         self.profile_page.change_dln(f"Test {random.randint(1, 100)}")
         self.profile_page.change_lxd_date("2013-01-01")
-        self.profile_page.change_nationality("Russian")
+        self.profile_page.change_nationality()
         # self.profile_page.change_marital_status()
         # self.profile_page.change_birth_date("2013-01-01")
         self.profile_page.click_save_changes()

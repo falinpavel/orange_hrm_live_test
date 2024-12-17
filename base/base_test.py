@@ -4,6 +4,7 @@ from pages.dashboard_page import DashboardPage
 from pages.profile_page import ProfilePage
 from pages.sidebar_element import SidebarElements
 from config.data import Data
+from pages.admin_page import AdminPage
 
 """Аннотация типов для тестов. Делаем тесты мультистраничными."""
 
@@ -16,6 +17,7 @@ class BaseTest:
     dashboard_page: DashboardPage
     profile_page: ProfilePage
     sidebar_element: SidebarElements
+    admin_page: AdminPage
 
     @pytest.fixture(autouse=True)
     def setup(self, request, driver):
@@ -25,3 +27,4 @@ class BaseTest:
         request.cls.dashboard_page = DashboardPage(driver)
         request.cls.profile_page = ProfilePage(driver)
         request.cls.sidebar_element = SidebarElements(driver)
+        request.cls.admin_page = AdminPage(driver)
