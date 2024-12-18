@@ -1,11 +1,8 @@
 import allure
 from selenium.webdriver import Keys
-from selenium.webdriver.common.by import By
-
 from base.base_page import BasePage
 from config.links import Links
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import Select
 
 
 class ProfilePage(BasePage):
@@ -22,7 +19,7 @@ class ProfilePage(BasePage):
     EMPLOYEE_NATIONALITY_DROPDOWN = ("xpath", "(//div[@class='oxd-select-text oxd-select-text--active'])[1]")
     EMPLOYEE_NATIONALITY_DROPDOWN_LIST = ("xpath", "//div[@role='listbox']")
     NEW_EMPLOYEE_NATIONALITY = ("xpath", "//div[@role='option']/span[text()='Angolan']")
-    #NEW_EMPLOYEE_NATIONALITY = (By.XPATH, f"//div[@role='option']/span[text()='{new_nationality}']")
+    # NEW_EMPLOYEE_NATIONALITY = (By.XPATH, f"//div[@role='option']/span[text()='{new_nationality}']")
 
     EMPLOYEE_MARITAL_STATUS_DROPDOWN = ("xpath", "(//div[@class='oxd-select-text oxd-select-text--active'])[2]")
     EMPLOYEE_BIRTH_DATE_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[6]")
@@ -34,7 +31,7 @@ class ProfilePage(BasePage):
     EMPLOYEE_BLOOD_TYPE_DROPDOWN = ("xpath", "(//div[@class='oxd-select-text oxd-select-text--active'])[3]")
     EMPLOYEE_TEST_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[7]")
     SAVE_BUTTON_CUSTOM = ("xpath", "(//button[@type = 'submit'])[2]")
-    """Atachments"""
+    """Attachments"""
     EMPLOYEE_ADD_ATTACHMENT_BUTTON = ("xpath", "//button[normalize-space()='Add']")
 
     def change_first_name(self, new_first_name):
@@ -142,8 +139,6 @@ class ProfilePage(BasePage):
             lxd_date.send_keys(Keys.CONTROL + "a", Keys.DELETE)
             lxd_date.send_keys(new_lxd_date)
             self.lxd_date = new_lxd_date
-
-    from selenium.webdriver.support.ui import Select
 
     def change_nationality(self):
         with allure.step(f"Change nationality to"):
