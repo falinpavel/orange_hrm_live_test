@@ -1,5 +1,6 @@
 import random
 import allure
+import pytest
 from base.base_test import BaseTest
 
 """
@@ -24,8 +25,28 @@ Gherkin:
 class TestProfileFeature(BaseTest):
     @allure.title("Change employee info")
     @allure.severity("Critical")
-    # @pytest.mark.smoke
+    @pytest.mark.smoke
     def test_change_employee_info(self):
+        """
+        Тест-кейс: Изменение информации о сотруднике:
+        1. Открыть главную страницу
+        2. Ввести валидный логин
+        3. Ввести валидный пароль
+        4. Нажать на кнопку "Submit"
+        5. Происходит редирект на страницу "Dashboard"
+        6. Нажать на выпадающее меню "My Info"
+        7. Изменить имя сотрудника
+        8. Изменить отчество сотрудника
+        9. Изменить фамилию сотрудника
+        10. Изменить ID сотрудника
+        11. Изменить другой ID сотрудника
+        12. Изменить DLN сотрудника
+        13. Изменить LXD date сотрудника
+        14. Изменить гражданство сотрудниа
+        15. Изменить семейное положение сотрудника
+        16. Изменить дату рождения сотрудника
+        17. Сохранить изменения, нажать на кнопку "Save Changes" (делаем скриншот)
+        """
         self.login_page.open()
         self.login_page.enter_login(self.data.LOGIN)
         self.login_page.enter_password(self.data.PASSWORD)

@@ -1,5 +1,5 @@
-import random
 import allure
+import pytest
 from base.base_test import BaseTest
 
 
@@ -7,7 +7,7 @@ from base.base_test import BaseTest
 class TestAdminPage(BaseTest):
     @allure.title("Check admin page")
     @allure.severity("Critical")
-    # @pytest.mark.smoke
+    @pytest.mark.smoke
     def test_create_user_admin(self):
         self.login_page.open()
         self.login_page.enter_login(self.data.LOGIN)
