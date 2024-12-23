@@ -1,10 +1,10 @@
 import pytest
-from pages.login_page import LoginPage
-from pages.dashboard_page import DashboardPage
-from pages.profile_page import ProfilePage
-from pages.sidebar_element import SidebarElements
+from pages.auth.login_page import LoginPage
+from pages.pages.dashboard_page import DashboardPage
+from pages.pages.profile_page import ProfilePage
+from pages.sidebar.sidebar_element import SidebarElements
 from config.data import Data
-from pages.admin_page import AdminPage
+from pages.pages.admin_page import AdminPage
 
 """Аннотация типов для тестов. Делаем тесты мультистраничными."""
 

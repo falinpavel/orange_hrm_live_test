@@ -4,7 +4,6 @@ from base.base_test import BaseTest
 
 """
 Тест кейс: Изменение информации о сотруднике. 
-
 Gherkin:
     Scenario: Изменение информации о сотруднике
         Given Я вошел в систему
