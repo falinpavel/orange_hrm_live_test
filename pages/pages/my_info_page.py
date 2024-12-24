@@ -22,7 +22,7 @@ class ProfilePage(BasePage):
     EMPLOYEE_NATIONALITY_DROPDOWN = ("xpath", "(//div[@class='oxd-select-text oxd-select-text--active'])[1]")
     EMPLOYEE_NATIONALITY_DROPDOWN_LIST = ("xpath", "//div[@role='listbox']")
     NEW_EMPLOYEE_NATIONALITY = ("xpath", "//div[@role='option']/span[text()='Angolan']")
-    #NEW_EMPLOYEE_NATIONALITY = (By.XPATH, f"//div[@role='option']/span[text()='{new_nationality}']")
+    # NEW_EMPLOYEE_NATIONALITY = (By.XPATH, f"//div[@role='option']/span[text()='{new_nationality}']")
 
     EMPLOYEE_MARITAL_STATUS_DROPDOWN = ("xpath", "(//div[@class='oxd-select-text oxd-select-text--active'])[2]")
     EMPLOYEE_BIRTH_DATE_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[6]")
@@ -189,6 +189,6 @@ class ProfilePage(BasePage):
             birth_date.send_keys(new_birth_date)
             self.birth_date = new_birth_date
 
-    @allure.step("Click on 'Save' button")
     def click_save_changes(self):
-        self.wait.until(EC.element_to_be_clickable(self.SAVE_BUTTON_PERSONAL)).click()
+        with allure.step("Click on 'Save' button"):
+            self.wait.until(EC.element_to_be_clickable(self.SAVE_BUTTON_PERSONAL)).click()

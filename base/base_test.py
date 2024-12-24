@@ -1,5 +1,5 @@
 import pytest
-from pages.auth.login_page import LoginPage
+from pages.auth.auth_page import LoginPage
 from pages.pages.dashboard_page import DashboardPage
 from pages.pages.my_info_page import ProfilePage
 from pages.sidebar.sidebar_element import SidebarElements

@@ -1,3 +1,4 @@
+import time
 import allure
 from base.base_page import BasePage
 from config.links import Links
@@ -30,98 +31,115 @@ class SidebarElements(BasePage):
     SEARCH_FIELD = ("xpath", "//input[@placeholder='Search']")
     LINK_TIME_AFTER_SEARCH = ("xpath", "//span[text()='Time']")
 
-    @allure.step("Click on 'Switch' button")
     def click_switch_button(self):
-        self.wait.until(
-            EC.element_to_be_clickable(self.SWITCH_BUTTON)
-        ).click()
+        with allure.step("Click on 'Switch' button"):
+            self.wait.until(
+                EC.element_to_be_clickable(self.SWITCH_BUTTON)
+            ).click()
+            time.sleep(1)
 
-    @allure.step("Click on 'Buzz' link")
     def click_buzz_link(self):
-        self.wait.until(
-            EC.element_to_be_clickable(self.LINK_BUZZ)
-        ).click()
+        with allure.step("Click on 'Buzz' link"):
+            self.wait.until(
+                EC.element_to_be_clickable(self.LINK_BUZZ)
+            ).click()
+            assert Links.BUZZ_PAGE == self.driver.current_url
 
-    @allure.step("Click on 'Claim' link")
     def click_claim_link(self):
-        self.wait.until(
-            EC.element_to_be_clickable(self.LINK_CLAIM)
-        ).click()
+        with allure.step("Click on 'Claim' link"):
+            self.wait.until(
+                EC.element_to_be_clickable(self.LINK_CLAIM)
+            ).click()
+            assert Links.CLAIM_PAGE == self.driver.current_url
 
-    @allure.step("Click on 'Maintenance' link")
     def click_maintenance_link(self, password):
-        self.wait.until(
-            EC.element_to_be_clickable(self.LINK_MAINTENANCE)
-        ).click()
-        self.wait.until(
-            EC.element_to_be_clickable(self.PASSWORD_FIELD_MAINTENANCE)
-        ).send_keys(password)
-        self.wait.until(  # переписать в будущем отдельной функцией !!!
-            EC.element_to_be_clickable(self.CONFIRM_BUTTON_MAINTENANCE)
-        ).click()
+        with allure.step("Click on 'Maintenance' link"):
+            self.wait.until(
+                EC.element_to_be_clickable(self.LINK_MAINTENANCE)
+            ).click()
+            self.wait.until(
+                EC.element_to_be_clickable(self.PASSWORD_FIELD_MAINTENANCE)
+            ).send_keys(password)
+            self.wait.until(  # переписать в будущем отдельной функцией !!!
+                EC.element_to_be_clickable(self.CONFIRM_BUTTON_MAINTENANCE)
+            ).click()
+            assert Links.MAINTENANCE_PAGE == self.driver.current_url
 
-    @allure.step("Click on 'Directory' link")
     def click_directory_link(self):
-        self.wait.until(
-            EC.element_to_be_clickable(self.LINK_DIRECTORY)
-        ).click()
+        with allure.step("Click on 'Directory' link"):
+            self.wait.until(
+                EC.element_to_be_clickable(self.LINK_DIRECTORY)
+            ).click()
+            assert Links.DIRECTORY_PAGE == self.driver.current_url
 
-    @allure.step("Click on 'Dashboard' link")
     def click_dashboard_link(self):
-        self.wait.until(
-            EC.element_to_be_clickable(self.LINK_DASHBOARD)
-        ).click()
+        with allure.step("Click on 'Dashboard' link"):
+            self.wait.until(
+                EC.element_to_be_clickable(self.LINK_DASHBOARD)
+            ).click()
+            assert Links.DASHBOARD_PAGE == self.driver.current_url
 
-    @allure.step("Click on 'Performance' link")
     def click_performance_link(self):
-        self.wait.until(
-            EC.element_to_be_clickable(self.LINK_PERFORMANCE)
-        ).click()
+        with allure.step("Click on 'Performance' link"):
+            self.wait.until(
+                EC.element_to_be_clickable(self.LINK_PERFORMANCE)
+            ).click()
+            assert Links.PERFORMANCE_PAGE == self.driver.current_url
 
-    @allure.step("Click on 'My Info' link")
     def click_my_info_link(self):
-        self.wait.until(
-            EC.element_to_be_clickable(self.LINK_MY_INFO)
-        ).click()
+        with allure.step("Click on 'My Info' link"):
+            self.wait.until(
+                EC.element_to_be_clickable(self.LINK_MY_INFO)
+            ).click()
+            assert Links.MY_INFO_PAGE == self.driver.current_url
 
-    @allure.step("Click on 'Recruitment' link")
     def click_recruitment_link(self):
-        self.wait.until(
-            EC.element_to_be_clickable(self.LINK_RECRUITMENT)
-        ).click()
+        with allure.step("Click on 'Recruitment' link"):
+            self.wait.until(
+                EC.element_to_be_clickable(self.LINK_RECRUITMENT)
+            ).click()
+            assert Links.RECRUITMENT_PAGE == self.driver.current_url
 
-    @allure.step("Click on 'Time' link")
     def click_time_link(self):
-        self.wait.until(
-            EC.element_to_be_clickable(self.LINK_TIME)
-        ).click()
+        with allure.step("Click on 'Time' link"):
+            self.wait.until(
+                EC.element_to_be_clickable(self.LINK_TIME)
+            ).click()
+            assert Links.TIME_PAGE == self.driver.current_url
 
-    @allure.step("Click on 'Leave' link")
     def click_leave_link(self):
-        self.wait.until(
-            EC.element_to_be_clickable(self.LINK_LEAVE)
-        ).click()
+        with allure.step("Click on 'Leave' link"):
+            self.wait.until(
+                EC.element_to_be_clickable(self.LINK_LEAVE)
+            ).click()
+            assert Links.LEAVE_PAGE == self.driver.current_url
 
-    @allure.step("Click on 'PIM' link")
     def click_pim_link(self):
-        self.wait.until(
-            EC.element_to_be_clickable(self.LINK_PIM)
-        ).click()
+        with allure.step("Click on 'PIM' link"):
+            self.wait.until(
+                EC.element_to_be_clickable(self.LINK_PIM)
+            ).click()
+            assert Links.PIM_PAGE == self.driver.current_url
 
-    @allure.step("Click on 'Admin' link")
     def click_admin_link(self):
-        self.wait.until(
-            EC.element_to_be_clickable(self.LINK_ADMIN)
-        ).click()
+        with allure.step("Click on 'Admin' link"):
+            self.wait.until(
+                EC.element_to_be_clickable(self.LINK_ADMIN)
+            ).click()
+            assert Links.ADMIN_PAGE == self.driver.current_url
 
-    @allure.step("Enter search query /Time/")
     def enter_search_query(self, query):
-        self.wait.until(
-            EC.element_to_be_clickable(self.SEARCH_FIELD)
-        ).send_keys(query)
-        self.wait.until(
-            EC.element_to_be_clickable(self.LINK_TIME_AFTER_SEARCH)
-        ).click()
+        with allure.step("Enter search query /Time/"):
+            self.wait.until(
+                EC.element_to_be_clickable(self.SEARCH_FIELD)
+            ).send_keys(query)
+            value_search = self.wait.until(
+                EC.element_to_be_clickable(self.SEARCH_FIELD)
+            ).get_attribute("value")
+            assert value_search == query
+            self.wait.until(
+                EC.element_to_be_clickable(self.LINK_TIME_AFTER_SEARCH)
+            ).click()
 
 
 
