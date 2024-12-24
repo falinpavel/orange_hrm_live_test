@@ -31,11 +31,10 @@ class ProfilePage(BasePage):
     EMPLOYEE_GENDER_FEMALE = ("xpath", "//input[@value='2']")
     SAVE_BUTTON_PERSONAL = ("xpath", "(//button[@type = 'submit'])[1]")
 
-    """Custom Fields"""
     EMPLOYEE_BLOOD_TYPE_DROPDOWN = ("xpath", "(//div[@class='oxd-select-text oxd-select-text--active'])[3]")
     EMPLOYEE_TEST_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[7]")
     SAVE_BUTTON_CUSTOM = ("xpath", "(//button[@type = 'submit'])[2]")
-    """Atachments"""
+
     EMPLOYEE_ADD_ATTACHMENT_BUTTON = ("xpath", "//button[normalize-space()='Add']")
 
     def change_first_name(self, new_first_name):
