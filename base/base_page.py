@@ -1,4 +1,3 @@
-"""Инициализация драйвера и обшие методы для всех страниц."""
 import allure
 from allure_commons.types import AttachmentType
 from selenium.webdriver.support.ui import WebDriverWait
@@ -6,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class BasePage:
+    PAGE_URL = None
 
     def __init__(self, driver):
         self.driver = driver

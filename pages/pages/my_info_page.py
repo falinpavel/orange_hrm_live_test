@@ -52,7 +52,6 @@ class ProfilePage(BasePage):
             first_name_field.send_keys(new_first_name)
             assert first_name_field.get_attribute("value") == new_first_name, \
                 f"Expected: {new_first_name}, Actual: {first_name_field.get_attribute('value')}"
-            self.name = new_first_name
 
     def change_middle_name(self, new_middle_name):
         with allure.step(f"Change middle name on {new_middle_name}"):
@@ -68,7 +67,6 @@ class ProfilePage(BasePage):
             middle_name.send_keys(new_middle_name)
             assert middle_name.get_attribute("value") == new_middle_name, \
                 f"Expected: {new_middle_name}, Actual: {middle_name.get_attribute('value')}"
-            self.name = new_middle_name
 
     def change_second_name(self, new_second_name):
         with allure.step(f"Change second name on {new_second_name}"):
@@ -84,7 +82,6 @@ class ProfilePage(BasePage):
             second_name.send_keys(new_second_name)
             assert second_name.get_attribute("value") == new_second_name, \
                 f"Expected: {new_second_name}, Actual: {second_name.get_attribute('value')}"
-            self.name = new_second_name
 
     def change_employee_id(self, new_id):
         with allure.step(f"Change employee id on {new_id}"):
@@ -100,7 +97,6 @@ class ProfilePage(BasePage):
             employee_id.send_keys(new_id)
             assert employee_id.get_attribute("value") == new_id, \
                 f"Expected: {new_id}, Actual: {employee_id.get_attribute('value')}"
-            self.id = new_id
 
     def change_other_id(self, new_other_id):
         with allure.step(f"Change other id on {new_other_id}"):
@@ -116,7 +112,6 @@ class ProfilePage(BasePage):
             other_id.send_keys(new_other_id)
             assert other_id.get_attribute("value") == new_other_id, \
                 f"Expected: {new_other_id}, Actual: {other_id.get_attribute('value')}"
-            self.other_id = new_other_id
 
     def change_dln(self, new_dln):
         with allure.step(f"Change dln on {new_dln}"):
@@ -132,7 +127,6 @@ class ProfilePage(BasePage):
             dln.send_keys(new_dln)
             assert dln.get_attribute("value") == new_dln, \
                 f"Expected: {new_dln}, Actual: {dln.get_attribute('value')}"
-            self.dln = new_dln
 
     def change_lxd_date(self, new_lxd_date):
         with allure.step(f"Change lxd date on {new_lxd_date}"):
@@ -145,7 +139,6 @@ class ProfilePage(BasePage):
             lxd_date.send_keys(new_lxd_date)
             assert lxd_date.get_attribute("value") == new_lxd_date, \
                 f"Expected: {new_lxd_date}, Actual: {lxd_date.get_attribute('value')}"
-            self.lxd_date = new_lxd_date
 
     def change_nationality(self):  # TODO: need to be fixed
         with allure.step("Change nationality"):
@@ -200,7 +193,6 @@ class ProfilePage(BasePage):
             birth_date.click()
             birth_date.send_keys(Keys.CONTROL + "a", Keys.DELETE)
             birth_date.send_keys(new_birth_date)
-            self.birth_date = new_birth_date
 
     def click_save_changes(self):
         with allure.step("Click on 'Save' button"):

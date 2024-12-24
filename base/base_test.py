@@ -6,8 +6,6 @@ from pages.sidebar.sidebar_element import SidebarElements
 from config.data import Data
 from pages.pages.admin_page import AdminPage
 
-"""Аннотация типов для тестов. Делаем тесты мультистраничными."""
-
 
 class BaseTest:
 

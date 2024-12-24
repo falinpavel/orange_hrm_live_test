@@ -5,7 +5,7 @@ import pytest
 from base.base_test import BaseTest
 
 
-@allure.feature("Auth")
+@allure.feature("Authorization")
 class TestAuth(BaseTest):
 
     @allure.title("Authorization user with valid credentials")

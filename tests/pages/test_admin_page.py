@@ -3,7 +3,7 @@ import pytest
 from base.base_test import BaseTest
 
 
-@allure.feature("Admin page")
+@allure.feature("Admin page tests")
 class TestAdminPage(BaseTest):
     @allure.title("Check admin page and create user admin, status = enabled")
     @allure.severity("Major")
