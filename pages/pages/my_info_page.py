@@ -1,3 +1,5 @@
+import time
+
 import allure
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
@@ -21,7 +23,7 @@ class ProfilePage(BasePage):
 
     EMPLOYEE_NATIONALITY_DROPDOWN = ("xpath", "(//div[@class='oxd-select-text oxd-select-text--active'])[1]")
     EMPLOYEE_NATIONALITY_DROPDOWN_LIST = ("xpath", "//div[@role='listbox']")
-    NEW_EMPLOYEE_NATIONALITY = ("xpath", "//div[@role='option']/span[text()='Angolan']")
+    # NEW_EMPLOYEE_NATIONALITY = ("xpath", f"//div[@role='option']/span[text()='{'new_nationality'}']")
     # NEW_EMPLOYEE_NATIONALITY = (By.XPATH, f"//div[@role='option']/span[text()='{new_nationality}']")
 
     EMPLOYEE_MARITAL_STATUS_DROPDOWN = ("xpath", "(//div[@class='oxd-select-text oxd-select-text--active'])[2]")
@@ -139,24 +141,37 @@ class ProfilePage(BasePage):
                 self.EMPLOYEE_LXD_DATE_FIELD)
             )
             lxd_date.click()
+            lxd_date.clear()
             lxd_date.send_keys(Keys.CONTROL + "a", Keys.DELETE)
             lxd_date.send_keys(new_lxd_date)
+            assert lxd_date.get_attribute("value") == new_lxd_date, \
+                f"Expected: {new_lxd_date}, Actual: {lxd_date.get_attribute('value')}"
             self.lxd_date = new_lxd_date
 
     from selenium.webdriver.support.ui import Select
 
-    def change_nationality(self):
+    def change_nationality(self, new_nationality): # TODO: fix it
         with allure.step(f"Change nationality to"):
-            nationality = self.wait.until(EC.element_to_be_clickable(
-                self.EMPLOYEE_NATIONALITY_DROPDOWN)
-            )
-            nationality.click()
-            nationality_list = self.wait.until(EC.visibility_of_element_located(
-                self.EMPLOYEE_NATIONALITY_DROPDOWN_LIST)
-            )
-            select_new_value = self.wait.until(EC.element_to_be_clickable(
-                self.EMPLOYEE_NATIONALITY_DROPDOWN_LIST)
-            ).click()
+            try:
+                nationality = self.wait.until(EC.element_to_be_clickable(
+                    self.EMPLOYEE_NATIONALITY_DROPDOWN)
+                )
+                nationality.click()
+                time.sleep(1)
+                options = self.wait.until(
+                    EC.presence_of_all_elements_located(self.EMPLOYEE_NATIONALITY_DROPDOWN_LIST)
+                )
+                for option in options:
+                    if option.text == new_nationality:
+                        option.click()
+                        assert option.text == new_nationality
+                        break
+                    else:
+                        raise ValueError(f"Option with text '{new_nationality}' not found in dropdown.")
+                time.sleep(1)
+
+            except Exception as e:
+                print(f"Error selecting value from custom dropdown: {e}")
 
     # def change_nationality(self, new_nationality):
     #     with allure.step(f"Change nationality on {new_nationality}"):

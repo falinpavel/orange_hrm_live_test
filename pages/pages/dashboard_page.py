@@ -1,3 +1,4 @@
+import time
 import allure
 from base.base_page import BasePage
 from config.links import Links
@@ -13,4 +14,6 @@ class DashboardPage(BasePage):
     def click_my_info_link(self):
         my_info_button = self.wait.until(
             EC.element_to_be_clickable(self.MY_INFO_BUTTON)
-        ).click()
+        )
+        my_info_button.click()
+        time.sleep(1)

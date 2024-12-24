@@ -1,3 +1,4 @@
+import datetime
 import random
 import allure
 import pytest
@@ -41,8 +42,8 @@ class TestProfileFeature(BaseTest):
         self.profile_page.change_employee_id(f"Test {random.randint(1, 100)}")
         self.profile_page.change_other_id(f"Test {random.randint(1, 100)}")
         self.profile_page.change_dln(f"Test {random.randint(1, 100)}")
-        self.profile_page.change_lxd_date("2013-01-01")
-        self.profile_page.change_nationality()
+        self.profile_page.change_lxd_date(datetime.datetime.now().strftime("%Y-%m-%d"))
+        self.profile_page.change_nationality("Russia")
         # self.profile_page.change_marital_status() # TODO: fix this
         self.profile_page.change_birth_date("2013-01-01")
         self.profile_page.click_save_changes()
