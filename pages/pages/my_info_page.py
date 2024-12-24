@@ -1,33 +1,31 @@
 import time
-
 import allure
 from selenium.webdriver import Keys
-from selenium.webdriver.common.by import By
-
 from base.base_page import BasePage
 from config.links import Links
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import Select
 
 
 class ProfilePage(BasePage):
     PAGE_URL = Links.MY_INFO_PAGE
 
-    EMPLOYEE_FIRST_NAME_FIELD = ("xpath", "//input[@name = 'firstName']")
-    EMPLOYEE_MIDDLE_NAME_FIELD = ("xpath", "//input[@name = 'middleName']")
-    EMPLOYEE_SECOND_NAME_FIELD = ("xpath", "//input[@name = 'lastName']")
+    EMPLOYEE_FIRST_NAME_FIELD = ("xpath", "//input[@name='firstName']")
+    EMPLOYEE_MIDDLE_NAME_FIELD = ("xpath", "//input[@name='middleName']")
+    EMPLOYEE_SECOND_NAME_FIELD = ("xpath", "//input[@name='lastName']")
     EMPLOYEE_ID_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[2]")
     EMPLOYEE_OTHER_ID_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[3]")
     EMPLOYEE_DLN_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[4]")
     EMPLOYEE_LXD_DATE_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[5]")
 
-    EMPLOYEE_NATIONALITY_DROPDOWN = ("xpath", "(//div[@class='oxd-select-text oxd-select-text--active'])[1]")
-    EMPLOYEE_NATIONALITY_DROPDOWN_LIST = ("xpath", "//div[@role='listbox']")
-    # NEW_EMPLOYEE_NATIONALITY = ("xpath", f"//div[@role='option']/span[text()='{'new_nationality'}']")
-    # NEW_EMPLOYEE_NATIONALITY = (By.XPATH, f"//div[@role='option']/span[text()='{new_nationality}']")
+    EMPLOYEE_NATIONALITY_DROPDOWN = ("xpath", "(//div[@class='oxd-select-wrapper'])[1]")
+    EMPLOYEE_NATIONALITY_DROPDOWN_SELECT = ("xpath", "//div[@role='option']/span[text()='Russian']")
 
-    EMPLOYEE_MARITAL_STATUS_DROPDOWN = ("xpath", "(//div[@class='oxd-select-text oxd-select-text--active'])[2]")
-    EMPLOYEE_MARITAL_STATUS_DROPDOWN_LIST = ("xpath", "//div[@role='listbox']")
+    EMPLOYEE_MARITAL_STATUS_DROPDOWN = ("xpath", "(//div[@class='oxd-select-wrapper'])[2]")
+    EMPLOYEE_VALUE_FIELD = ("xpath", "(//div[@class='oxd-select-text-input'])[2]")
+    EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_MARIED = ("xpath", "//div[@role='option']/span[text()='Married']")
+    EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_SINGLE = ("xpath", "//div[@role='option']/span[text()='Single']")
+    EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_OTHER = ("xpath", "//div[@role='option']/span[text()='Other']")
+
     EMPLOYEE_BIRTH_DATE_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[6]")
     EMPLOYEE_GENDER_MALE = ("xpath", "//input[@value='1']")
     EMPLOYEE_GENDER_FEMALE = ("xpath", "//input[@value='2']")
@@ -149,43 +147,50 @@ class ProfilePage(BasePage):
                 f"Expected: {new_lxd_date}, Actual: {lxd_date.get_attribute('value')}"
             self.lxd_date = new_lxd_date
 
-    from selenium.webdriver.support.ui import Select
+    def change_nationality(self):  # TODO: need to be fixed
+        with allure.step("Change nationality"):
+            self.wait.until(
+                EC.element_to_be_clickable(self.EMPLOYEE_NATIONALITY_DROPDOWN)
+            ).click()
+            time.sleep(1)
+            new_nationality = self.wait.until(
+                EC.element_to_be_clickable(self.EMPLOYEE_NATIONALITY_DROPDOWN_SELECT)
+            ).click()
+            time.sleep(1)
+            get_text_field = self.wait.until(
+                EC.element_to_be_clickable(self.EMPLOYEE_NATIONALITY_DROPDOWN)
+            ).get_attribute("value")
+            assert get_text_field == new_nationality
 
-    def change_nationality(self, new_nationality): # TODO: need to be fixed
-        with allure.step(f"Change nationality to {new_nationality}"):
-            try:
-                nationality_dropdown = self.wait.until(EC.element_to_be_clickable(self.EMPLOYEE_NATIONALITY_DROPDOWN))
-                nationality_dropdown.click()
+    def change_marital_status(self):  # TODO: need to be fixed
+        with allure.step("Change marital status"):
+            self.wait.until(
+                EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN)
+            ).click()
+            time.sleep(1)
+            before_marital_status = self.wait.until(
+                EC.element_to_be_clickable(self.EMPLOYEE_VALUE_FIELD)
+            ).get_dom_attribute("value")
+            if before_marital_status == "Married":
+                new_marital_status = self.wait.until(
+                    EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_SINGLE)
+                ).click()
                 time.sleep(1)
-                options = self.wait.until(
-                    EC.presence_of_all_elements_located(self.EMPLOYEE_NATIONALITY_DROPDOWN_LIST)
-                )
-                option_to_click = next((option for option in options if option.text == new_nationality), None)
-                if option_to_click is None:
-                    raise ValueError(f"Option with text '{new_nationality}' not found in dropdown.")
-                option_to_click.click()
-                assert option_to_click.text == new_nationality
-            except Exception as e:
-                print(f"Error selecting value from custom dropdown: {e}")
-
-    def change_marital_status(self, new_marital_status): # TODO: need to be fixed
-        with allure.step(f"Change marital status on {new_marital_status}"):
-            try:
-                marital_status_dropdown = self.wait.until(
-                    EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN)
-                )
-                marital_status_dropdown.click()
+                assert new_marital_status == "Single"
+            elif before_marital_status == "Single":
+                new_marital_status = self.wait.until(
+                    EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_MARIED)
+                ).click()
                 time.sleep(1)
-                options = self.wait.until(
-                    EC.presence_of_all_elements_located(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN_LIST)
-                )
-                option_to_click = next((option for option in options if option.text == new_marital_status), None)
-                if option_to_click is None:
-                    raise ValueError(f"Option with text '{new_marital_status}' not found in dropdown.")
-                option_to_click.click()
-                assert option_to_click.text == new_marital_status
-            except Exception as e:
-                print(f"Error selecting value from custom dropdown: {e}")
+                assert new_marital_status == "Married"
+            elif before_marital_status == "Other":
+                new_marital_status = self.wait.until(
+                    EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_MARIED)
+                ).click()
+                time.sleep(1)
+                assert new_marital_status == "Married"
+            else:
+                assert False, "Expected: 'Married', 'Single' or 'Other'"
 
     def change_birth_date(self, new_birth_date):
         with allure.step(f"Change birth date on {new_birth_date}"):
