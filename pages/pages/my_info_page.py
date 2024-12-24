@@ -27,6 +27,7 @@ class ProfilePage(BasePage):
     # NEW_EMPLOYEE_NATIONALITY = (By.XPATH, f"//div[@role='option']/span[text()='{new_nationality}']")
 
     EMPLOYEE_MARITAL_STATUS_DROPDOWN = ("xpath", "(//div[@class='oxd-select-text oxd-select-text--active'])[2]")
+    EMPLOYEE_MARITAL_STATUS_DROPDOWN_LIST = ("xpath", "//div[@role='listbox']")
     EMPLOYEE_BIRTH_DATE_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[6]")
     EMPLOYEE_GENDER_MALE = ("xpath", "//input[@value='1']")
     EMPLOYEE_GENDER_FEMALE = ("xpath", "//input[@value='2']")
@@ -150,49 +151,41 @@ class ProfilePage(BasePage):
 
     from selenium.webdriver.support.ui import Select
 
-    def change_nationality(self, new_nationality): # TODO: fix it
-        with allure.step(f"Change nationality to"):
+    def change_nationality(self, new_nationality): # TODO: need to be fixed
+        with allure.step(f"Change nationality to {new_nationality}"):
             try:
-                nationality = self.wait.until(EC.element_to_be_clickable(
-                    self.EMPLOYEE_NATIONALITY_DROPDOWN)
-                )
-                nationality.click()
+                nationality_dropdown = self.wait.until(EC.element_to_be_clickable(self.EMPLOYEE_NATIONALITY_DROPDOWN))
+                nationality_dropdown.click()
                 time.sleep(1)
                 options = self.wait.until(
                     EC.presence_of_all_elements_located(self.EMPLOYEE_NATIONALITY_DROPDOWN_LIST)
                 )
-                for option in options:
-                    if option.text == new_nationality:
-                        option.click()
-                        assert option.text == new_nationality
-                        break
-                    else:
-                        raise ValueError(f"Option with text '{new_nationality}' not found in dropdown.")
-                time.sleep(1)
-
+                option_to_click = next((option for option in options if option.text == new_nationality), None)
+                if option_to_click is None:
+                    raise ValueError(f"Option with text '{new_nationality}' not found in dropdown.")
+                option_to_click.click()
+                assert option_to_click.text == new_nationality
             except Exception as e:
                 print(f"Error selecting value from custom dropdown: {e}")
 
-    # def change_nationality(self, new_nationality):
-    #     with allure.step(f"Change nationality on {new_nationality}"):
-    #         nationality = self.wait.until(EC.element_to_be_clickable(
-    #             self.EMPLOYEE_NATIONALITY_DROPDOWN)
-    #         )
-    #         for option in nationality.find_elements_by_tag_name("option"):
-    #             if option.text == new_nationality:
-    #                 option.click()
-    #                 break
-
-
-    def change_marital_status(self, new_marital_status):
+    def change_marital_status(self, new_marital_status): # TODO: need to be fixed
         with allure.step(f"Change marital status on {new_marital_status}"):
-            marital_status = self.wait.until(EC.element_to_be_clickable(
-                self.EMPLOYEE_MARITAL_STATUS_DROPDOWN)
-            )
-            marital_status.click()
-            marital_status.send_keys(Keys.CONTROL + "a", Keys.DELETE)
-            marital_status.send_keys(new_marital_status)
-            self.marital_status = new_marital_status
+            try:
+                marital_status_dropdown = self.wait.until(
+                    EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN)
+                )
+                marital_status_dropdown.click()
+                time.sleep(1)
+                options = self.wait.until(
+                    EC.presence_of_all_elements_located(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN_LIST)
+                )
+                option_to_click = next((option for option in options if option.text == new_marital_status), None)
+                if option_to_click is None:
+                    raise ValueError(f"Option with text '{new_marital_status}' not found in dropdown.")
+                option_to_click.click()
+                assert option_to_click.text == new_marital_status
+            except Exception as e:
+                print(f"Error selecting value from custom dropdown: {e}")
 
     def change_birth_date(self, new_birth_date):
         with allure.step(f"Change birth date on {new_birth_date}"):
