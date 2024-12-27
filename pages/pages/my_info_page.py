@@ -21,7 +21,7 @@ class ProfilePage(BasePage):
     EMPLOYEE_NATIONALITY_DROPDOWN_SELECT = ("xpath", "//div[@role='option']/span[text()='Russian']")
 
     EMPLOYEE_MARITAL_STATUS_DROPDOWN = ("xpath", "(//div[@class='oxd-select-wrapper'])[2]")
-    EMPLOYEE_VALUE_FIELD = ("xpath", "(//div[@class='oxd-select-text-input'])[2]")
+    EMPLOYEE_MARITAL_VALUE_FIELD = ("xpath", "(//div[@class='oxd-select-text-input'])[2]")
     EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_MARIED = ("xpath", "//div[@role='option']/span[text()='Married']")
     EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_SINGLE = ("xpath", "//div[@role='option']/span[text()='Single']")
     EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_OTHER = ("xpath", "//div[@role='option']/span[text()='Other']")
@@ -139,7 +139,7 @@ class ProfilePage(BasePage):
             assert lxd_date.get_attribute("value") == new_lxd_date, \
                 f"Expected: {new_lxd_date}, Actual: {lxd_date.get_attribute('value')}"
 
-    def change_nationality(self):  # TODO: need to be fixed
+    def change_nationality(self):  # TODO: need to be fixed, add exeptions
         with allure.step("Change nationality"):
             self.wait.until(
                 EC.element_to_be_clickable(self.EMPLOYEE_NATIONALITY_DROPDOWN)
@@ -154,33 +154,56 @@ class ProfilePage(BasePage):
             ).get_attribute("value")
             assert get_text_field == new_nationality
 
-    def change_marital_status(self):  # TODO: need to be fixed
+    def change_marital_status(self):
         with allure.step("Change marital status"):
+            before_marital_status = self.wait.until(
+                EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_VALUE_FIELD)
+            ).text
+            print(before_marital_status)
             self.wait.until(
                 EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN)
             ).click()
             time.sleep(1)
-            before_marital_status = self.wait.until(
-                EC.element_to_be_clickable(self.EMPLOYEE_VALUE_FIELD)
-            ).get_dom_attribute("value")
-            if before_marital_status == "Married":
-                new_marital_status = self.wait.until(
+            if before_marital_status == "-- Select --":
+                value = self.wait.until(
+                    EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_SINGLE)
+                ).text
+                print(value)
+                assert value == "Single"
+                self.wait.until(
                     EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_SINGLE)
                 ).click()
                 time.sleep(1)
-                assert new_marital_status == "Single"
+            elif before_marital_status == "Married":
+                value = self.wait.until(
+                    EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_SINGLE)
+                ).text
+                print(value)
+                assert value == "Single"
+                self.wait.until(
+                    EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_SINGLE)
+                ).click()
+                time.sleep(1)
             elif before_marital_status == "Single":
-                new_marital_status = self.wait.until(
+                value = self.wait.until(
+                    EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_MARIED)
+                ).text
+                print(value)
+                assert value == "Married"
+                self.wait.until(
                     EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_MARIED)
                 ).click()
                 time.sleep(1)
-                assert new_marital_status == "Married"
             elif before_marital_status == "Other":
-                new_marital_status = self.wait.until(
+                value = self.wait.until(
+                    EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_MARIED)
+                ).text
+                print(value)
+                assert value == "Married"
+                self.wait.until(
                     EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_MARIED)
                 ).click()
                 time.sleep(1)
-                assert new_marital_status == "Married"
             else:
                 assert False, "Expected: 'Married', 'Single' or 'Other'"
 
