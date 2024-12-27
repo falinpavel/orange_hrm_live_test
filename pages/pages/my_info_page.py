@@ -8,7 +8,6 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class ProfilePage(BasePage):
     PAGE_URL = Links.MY_INFO_PAGE
-
     EMPLOYEE_FIRST_NAME_FIELD = ("xpath", "//input[@name='firstName']")
     EMPLOYEE_MIDDLE_NAME_FIELD = ("xpath", "//input[@name='middleName']")
     EMPLOYEE_SECOND_NAME_FIELD = ("xpath", "//input[@name='lastName']")
@@ -16,25 +15,20 @@ class ProfilePage(BasePage):
     EMPLOYEE_OTHER_ID_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[3]")
     EMPLOYEE_DLN_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[4]")
     EMPLOYEE_LXD_DATE_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[5]")
-
     EMPLOYEE_NATIONALITY_DROPDOWN = ("xpath", "(//div[@class='oxd-select-wrapper'])[1]")
     EMPLOYEE_NATIONALITY_DROPDOWN_SELECT = ("xpath", "//div[@role='option']/span[text()='Russian']")
-
     EMPLOYEE_MARITAL_STATUS_DROPDOWN = ("xpath", "(//div[@class='oxd-select-wrapper'])[2]")
     EMPLOYEE_MARITAL_VALUE_FIELD = ("xpath", "(//div[@class='oxd-select-text-input'])[2]")
     EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_MARIED = ("xpath", "//div[@role='option']/span[text()='Married']")
     EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_SINGLE = ("xpath", "//div[@role='option']/span[text()='Single']")
     EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_OTHER = ("xpath", "//div[@role='option']/span[text()='Other']")
-
     EMPLOYEE_BIRTH_DATE_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[6]")
     EMPLOYEE_GENDER_MALE = ("xpath", "//input[@value='1']")
     EMPLOYEE_GENDER_FEMALE = ("xpath", "//input[@value='2']")
     SAVE_BUTTON_PERSONAL = ("xpath", "(//button[@type = 'submit'])[1]")
-
     EMPLOYEE_BLOOD_TYPE_DROPDOWN = ("xpath", "(//div[@class='oxd-select-text oxd-select-text--active'])[3]")
     EMPLOYEE_TEST_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[7]")
     SAVE_BUTTON_CUSTOM = ("xpath", "(//button[@type = 'submit'])[2]")
-
     EMPLOYEE_ADD_ATTACHMENT_BUTTON = ("xpath", "//button[normalize-space()='Add']")
 
     def change_first_name(self, new_first_name):
@@ -42,8 +36,10 @@ class ProfilePage(BasePage):
             first_name_field = self.wait.until(EC.element_to_be_clickable(
                 self.EMPLOYEE_FIRST_NAME_FIELD)
             )
+            time.sleep(1)
             first_name_field.click()
-            first_name_field.send_keys(Keys.CONTROL + "a", Keys.DELETE)
+            first_name_field.send_keys(Keys.CONTROL + "a")
+            first_name_field.send_keys(Keys.DELETE)
             self.wait.until(
                 lambda driver: first_name_field.get_attribute("value") == "",
                 "First name is not empty"
@@ -57,8 +53,10 @@ class ProfilePage(BasePage):
             middle_name = self.wait.until(EC.element_to_be_clickable(
                 self.EMPLOYEE_MIDDLE_NAME_FIELD)
             )
+            time.sleep(1)
             middle_name.click()
-            middle_name.send_keys(Keys.CONTROL + "a", Keys.DELETE)
+            middle_name.send_keys(Keys.CONTROL + "a")
+            middle_name.send_keys(Keys.DELETE)
             self.wait.until(
                 lambda driver: middle_name.get_attribute("value") == "",
                 "Middle name is not empty"
@@ -72,8 +70,10 @@ class ProfilePage(BasePage):
             second_name = self.wait.until(EC.element_to_be_clickable(
                 self.EMPLOYEE_SECOND_NAME_FIELD)
             )
+            time.sleep(1)
             second_name.click()
-            second_name.send_keys(Keys.CONTROL + "a", Keys.DELETE)
+            second_name.send_keys(Keys.CONTROL + "a")
+            second_name.send_keys(Keys.DELETE)
             self.wait.until(
                 lambda driver: second_name.get_attribute("value") == "",
                 "Second name is not empty"
@@ -87,8 +87,10 @@ class ProfilePage(BasePage):
             employee_id = self.wait.until(EC.element_to_be_clickable(
                 self.EMPLOYEE_ID_FIELD)
             )
+            time.sleep(1)
             employee_id.click()
-            employee_id.send_keys(Keys.CONTROL + "a", Keys.DELETE)
+            employee_id.send_keys(Keys.CONTROL + "a")
+            employee_id.send_keys(Keys.DELETE)
             self.wait.until(
                 lambda driver: employee_id.get_attribute("value") == "",
                 "Employee id is not empty"
@@ -102,8 +104,10 @@ class ProfilePage(BasePage):
             other_id = self.wait.until(EC.element_to_be_clickable(
                 self.EMPLOYEE_OTHER_ID_FIELD)
             )
+            time.sleep(1)
             other_id.click()
-            other_id.send_keys(Keys.CONTROL + "a", Keys.DELETE)
+            other_id.send_keys(Keys.CONTROL + "a")
+            other_id.send_keys(Keys.DELETE)
             self.wait.until(
                 lambda driver: other_id.get_attribute("value") == "",
                 "Other id is not empty"
@@ -117,8 +121,10 @@ class ProfilePage(BasePage):
             dln = self.wait.until(EC.element_to_be_clickable(
                 self.EMPLOYEE_DLN_FIELD)
             )
+            time.sleep(1)
             dln.click()
-            dln.send_keys(Keys.CONTROL + "a", Keys.DELETE)
+            dln.send_keys(Keys.CONTROL + "a")
+            dln.send_keys(Keys.DELETE)
             self.wait.until(
                 lambda driver: dln.get_attribute("value") == "",
                 "Dln is not empty"
@@ -129,15 +135,25 @@ class ProfilePage(BasePage):
 
     def change_lxd_date(self, new_lxd_date):
         with allure.step(f"Change lxd date on {new_lxd_date}"):
-            lxd_date = self.wait.until(EC.element_to_be_clickable(
+            lxd_date_field = self.wait.until(EC.element_to_be_clickable(
                 self.EMPLOYEE_LXD_DATE_FIELD)
             )
-            lxd_date.click()
-            lxd_date.clear()
-            lxd_date.send_keys(Keys.CONTROL + "a", Keys.DELETE)
-            lxd_date.send_keys(new_lxd_date)
-            assert lxd_date.get_attribute("value") == new_lxd_date, \
-                f"Expected: {new_lxd_date}, Actual: {lxd_date.get_attribute('value')}"
+            time.sleep(1)
+            lxd_date_field.click()
+            lxd_date_field.send_keys(Keys.CONTROL + "a")
+            lxd_date_field.send_keys(Keys.DELETE)
+            lxd_date_field.send_keys(new_lxd_date)
+            assert lxd_date_field.get_attribute("value") == new_lxd_date, \
+                f"Expected: {new_lxd_date}, Actual: {lxd_date_field.get_attribute('value')}"
+            # self.wait.until(EC.element_to_be_clickable(
+            #     self.EMPLOYEE_LXD_DATE_FIELD)
+            # ).click()
+            # lxd_date = self.wait.until(EC.element_to_be_clickable(
+            #     self.EMPLOYEE_LXD_DATE_FIELD)
+            # ).send_keys(Keys.CONTROL + "a", Keys.DELETE)
+            # lxd_date.send_keys(new_lxd_date)
+            # assert lxd_date.get_attribute("value") == new_lxd_date, \
+            #     f"Expected: {new_lxd_date}, Actual: {lxd_date.get_attribute('value')}"
 
     def change_nationality(self):  # TODO: need to be fixed, add exeptions
         with allure.step("Change nationality"):
@@ -147,8 +163,9 @@ class ProfilePage(BasePage):
             time.sleep(1)
             new_nationality = self.wait.until(
                 EC.element_to_be_clickable(self.EMPLOYEE_NATIONALITY_DROPDOWN_SELECT)
-            ).click()
+            )
             time.sleep(1)
+            new_nationality.click()
             get_text_field = self.wait.until(
                 EC.element_to_be_clickable(self.EMPLOYEE_NATIONALITY_DROPDOWN)
             ).get_attribute("value")

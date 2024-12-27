@@ -9,11 +9,24 @@ class DashboardPage(BasePage):
 
     PAGE_URL = Links.DASHBOARD_PAGE
     MY_INFO_BUTTON = ("xpath", "//span[text()='My Info']")
+    MES_INFOS_BUTTON = ("xpath", "//span[text()='Mes Infos']")
 
     @allure.step("Click on 'My Info' link")
     def click_my_info_link(self):
-        my_info_button = self.wait.until(
-            EC.element_to_be_clickable(self.MY_INFO_BUTTON)
-        )
-        my_info_button.click()
-        time.sleep(1)
+        with allure.step("Click on 'My Info' link"):
+            value = self.wait.until(EC.element_to_be_clickable(self.MY_INFO_BUTTON)).text
+            if value is None:
+                value = self.wait.until(EC.element_to_be_clickable(self.MES_INFOS_BUTTON)).text
+            print(value)
+            if value == "My Info":
+                self.wait.until(
+                    EC.element_to_be_clickable(self.MY_INFO_BUTTON)
+                ).click()
+                assert Links.MY_INFO_PAGE == self.driver.current_url
+            elif value == "My Infos":
+                self.wait.until(
+                    EC.element_to_be_clickable(self.MES_INFOS_BUTTON)
+                ).click()
+                assert Links.MY_INFO_PAGE == self.driver.current_url
+            else:
+                assert False
