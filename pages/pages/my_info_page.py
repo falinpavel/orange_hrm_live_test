@@ -11,12 +11,14 @@ class ProfilePage(BasePage):
     EMPLOYEE_FIRST_NAME_FIELD = ("xpath", "//input[@name='firstName']")
     EMPLOYEE_MIDDLE_NAME_FIELD = ("xpath", "//input[@name='middleName']")
     EMPLOYEE_SECOND_NAME_FIELD = ("xpath", "//input[@name='lastName']")
-    EMPLOYEE_ID_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[2]")
-    EMPLOYEE_OTHER_ID_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[3]")
-    EMPLOYEE_DLN_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[4]")
-    EMPLOYEE_LXD_DATE_FIELD = ("xpath", "(//input[@class='oxd-input oxd-input--active'])[5]")
+    EMPLOYEE_ID_FIELD = ("xpath", "(//div/input)[5]")
+    EMPLOYEE_OTHER_ID_FIELD = ("xpath", "(//div/input)[6]")
+    EMPLOYEE_DLN_FIELD = ("xpath", "(//div/input)[7]")
+    EMPLOYEE_LXD_DATE_FIELD = ("xpath", "(//div/input)[8]")
+
     EMPLOYEE_NATIONALITY_DROPDOWN = ("xpath", "(//div[@class='oxd-select-wrapper'])[1]")
     EMPLOYEE_NATIONALITY_DROPDOWN_SELECT = ("xpath", "//div[@role='option']/span[text()='Russian']")
+
     EMPLOYEE_MARITAL_STATUS_DROPDOWN = ("xpath", "(//div[@class='oxd-select-wrapper'])[2]")
     EMPLOYEE_MARITAL_VALUE_FIELD = ("xpath", "(//div[@class='oxd-select-text-input'])[2]")
     EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_MARIED = ("xpath", "//div[@role='option']/span[text()='Married']")
@@ -109,12 +111,11 @@ class ProfilePage(BasePage):
             other_id.send_keys(Keys.CONTROL + "a")
             other_id.send_keys(Keys.DELETE)
             self.wait.until(
-                lambda driver: other_id.get_attribute("value") == "",
+                lambda driver: other_id.text == "",
                 "Other id is not empty"
             )
             other_id.send_keys(new_other_id)
-            assert other_id.get_attribute("value") == new_other_id, \
-                f"Expected: {new_other_id}, Actual: {other_id.get_attribute('value')}"
+            assert other_id.get_attribute("value") == new_other_id
 
     def change_dln(self, new_dln):
         with allure.step(f"Change dln on {new_dln}"):
@@ -145,15 +146,6 @@ class ProfilePage(BasePage):
             lxd_date_field.send_keys(new_lxd_date)
             assert lxd_date_field.get_attribute("value") == new_lxd_date, \
                 f"Expected: {new_lxd_date}, Actual: {lxd_date_field.get_attribute('value')}"
-            # self.wait.until(EC.element_to_be_clickable(
-            #     self.EMPLOYEE_LXD_DATE_FIELD)
-            # ).click()
-            # lxd_date = self.wait.until(EC.element_to_be_clickable(
-            #     self.EMPLOYEE_LXD_DATE_FIELD)
-            # ).send_keys(Keys.CONTROL + "a", Keys.DELETE)
-            # lxd_date.send_keys(new_lxd_date)
-            # assert lxd_date.get_attribute("value") == new_lxd_date, \
-            #     f"Expected: {new_lxd_date}, Actual: {lxd_date.get_attribute('value')}"
 
     def change_nationality(self):  # TODO: need to be fixed, add exeptions
         with allure.step("Change nationality"):
@@ -161,15 +153,18 @@ class ProfilePage(BasePage):
                 EC.element_to_be_clickable(self.EMPLOYEE_NATIONALITY_DROPDOWN)
             ).click()
             time.sleep(1)
-            new_nationality = self.wait.until(
+            self.wait.until(
                 EC.element_to_be_clickable(self.EMPLOYEE_NATIONALITY_DROPDOWN_SELECT)
-            )
+            ).click()
             time.sleep(1)
-            new_nationality.click()
-            get_text_field = self.wait.until(
+            old_value = self.wait.until(
                 EC.element_to_be_clickable(self.EMPLOYEE_NATIONALITY_DROPDOWN)
-            ).get_attribute("value")
-            assert get_text_field == new_nationality
+            ).text
+            new_value = self.wait.until(
+                EC.element_to_be_clickable(self.EMPLOYEE_NATIONALITY_DROPDOWN)
+            ).text
+            print(new_value)
+            assert new_value == old_value
 
     def change_marital_status(self):
         with allure.step("Change marital status"):
