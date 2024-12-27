@@ -15,10 +15,8 @@ class ProfilePage(BasePage):
     EMPLOYEE_OTHER_ID_FIELD = ("xpath", "(//div/input)[6]")
     EMPLOYEE_DLN_FIELD = ("xpath", "(//div/input)[7]")
     EMPLOYEE_LXD_DATE_FIELD = ("xpath", "(//div/input)[8]")
-
     EMPLOYEE_NATIONALITY_DROPDOWN = ("xpath", "(//div[@class='oxd-select-wrapper'])[1]")
     EMPLOYEE_NATIONALITY_DROPDOWN_SELECT = ("xpath", "//div[@role='option']/span[text()='Russian']")
-
     EMPLOYEE_MARITAL_STATUS_DROPDOWN = ("xpath", "(//div[@class='oxd-select-wrapper'])[2]")
     EMPLOYEE_MARITAL_VALUE_FIELD = ("xpath", "(//div[@class='oxd-select-text-input'])[2]")
     EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_MARIED = ("xpath", "//div[@role='option']/span[text()='Married']")
