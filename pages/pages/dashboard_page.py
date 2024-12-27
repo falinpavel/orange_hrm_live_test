@@ -15,12 +15,15 @@ class DashboardPage(BasePage):
     def click_my_info_link(self):
         with allure.step("Click on 'My Info' link"):
             value = self.wait.until(EC.element_to_be_clickable(self.MY_INFO_BUTTON)).text
-            self.wait.until(
-                EC.element_to_be_clickable(self.MY_INFO_BUTTON)
-            ).click()
-            assert Links.MY_INFO_PAGE == self.driver.current_url
-            if value is None:
+            if value is not None:
+                self.wait.until(
+                    EC.element_to_be_clickable(self.MY_INFO_BUTTON)
+                ).click()
+                assert Links.MY_INFO_PAGE == self.driver.current_url
+            elif value is None:
                 self.wait.until(
                     EC.element_to_be_clickable(self.MES_INFOS_BUTTON)
                 ).click()
                 assert Links.MY_INFO_PAGE == self.driver.current_url
+            else:
+                raise Exception("Can't click on 'My Info' link")
