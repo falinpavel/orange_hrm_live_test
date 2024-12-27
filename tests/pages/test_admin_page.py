@@ -1,6 +1,7 @@
 import allure
 import pytest
 from base.base_test import BaseTest
+import utils.faker_data as FD
 
 
 @allure.feature("Admin page tests")
@@ -31,6 +32,10 @@ class TestAdminPage(BaseTest):
         self.login_page.enter_password(self.data.PASSWORD)
         self.login_page.click_submit_button()
         self.admin_page.click_admin_link()
+        self.admin_page.add_username_field(FD.fake_admin()[0])
+        self.admin_page.add_user_role_dropdown("Admin")
+        # self.admin_page.add_employee_name_field(FD.fake_admin()[2])
+        self.admin_page.add_status_dropdown("Enabled")
 
     @allure.title("Check admin page and create user ESS, status = disabled")
     @allure.severity("Major")

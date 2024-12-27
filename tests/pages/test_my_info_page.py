@@ -1,6 +1,6 @@
 from datetime import datetime
 from base.base_test import BaseTest
-import utils.faker_data as fd
+import utils.faker_data as FD
 import random
 import allure
 import pytest
@@ -37,16 +37,19 @@ class TestProfileFeature(BaseTest):
         self.login_page.enter_password(self.data.PASSWORD)
         self.login_page.click_submit_button()
         self.dashboard_page.click_my_info_link()
-        self.profile_page.change_first_name(fd.fake_fio()[0])
-        self.profile_page.change_middle_name(fd.fake_fio()[1])
-        self.profile_page.change_second_name(fd.fake_fio()[2])
-        self.profile_page.change_employee_id(f"Test {random.randint(1, 100)}")
-        self.profile_page.change_other_id(f"Test {random.randint(1, 100)}")
-        self.profile_page.change_dln(f"Test {random.randint(1, 100)}")
-        self.profile_page.change_lxd_date(datetime.now().strftime("%d-%m-%Y"))
+        self.profile_page.change_first_name(FD.fake_fio()[0])
+        self.profile_page.change_middle_name(FD.fake_fio()[1])
+        self.profile_page.change_second_name(FD.fake_fio()[2])
+        self.profile_page.change_nickname(FD.fake_nickname())
+        self.profile_page.change_employee_id(f"Test{random.randint(1, 100)}")
+        self.profile_page.change_other_id(f"Test{random.randint(1, 100)}")
+        self.profile_page.change_dln(f"Test{random.randint(1, 100)}")
+        self.profile_page.change_lxd_date(new_lxd_date=datetime.now().strftime("%Y-%m-%d"),
+                                          other_format=datetime.now().strftime("%d-%m-%Y"))
         self.profile_page.change_nationality()
         self.profile_page.change_marital_status()
-        self.profile_page.change_birth_date(datetime.now().strftime("%d-%m-%Y"))
+        # self.profile_page.change_birth_date(datetime.now().strftime("%d-%m-%Y"))
+        self.profile_page.change_gender_radio_button()
         self.profile_page.click_save_changes()
         self.profile_page.make_screenshot("test_change_employee_info")
 
