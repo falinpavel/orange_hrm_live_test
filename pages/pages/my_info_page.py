@@ -159,7 +159,6 @@ class ProfilePage(BasePage):
             before_marital_status = self.wait.until(
                 EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_VALUE_FIELD)
             ).text
-            print(before_marital_status)
             self.wait.until(
                 EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN)
             ).click()
@@ -168,7 +167,6 @@ class ProfilePage(BasePage):
                 value = self.wait.until(
                     EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_SINGLE)
                 ).text
-                print(value)
                 assert value == "Single"
                 self.wait.until(
                     EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_SINGLE)
@@ -178,7 +176,6 @@ class ProfilePage(BasePage):
                 value = self.wait.until(
                     EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_SINGLE)
                 ).text
-                print(value)
                 assert value == "Single"
                 self.wait.until(
                     EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_SINGLE)
@@ -188,7 +185,6 @@ class ProfilePage(BasePage):
                 value = self.wait.until(
                     EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_MARIED)
                 ).text
-                print(value)
                 assert value == "Married"
                 self.wait.until(
                     EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_MARIED)
@@ -198,7 +194,6 @@ class ProfilePage(BasePage):
                 value = self.wait.until(
                     EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_MARIED)
                 ).text
-                print(value)
                 assert value == "Married"
                 self.wait.until(
                     EC.element_to_be_clickable(self.EMPLOYEE_MARITAL_STATUS_DROPDOWN_SELECT_MARIED)
